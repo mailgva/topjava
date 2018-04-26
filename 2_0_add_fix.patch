@@ -1,0 +1,67 @@
+Index: src/main/java/ru/javawebinar/topjava/util/MealsUtil.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/ru/javawebinar/topjava/util/MealsUtil.java	(date 1509578938000)
++++ src/main/java/ru/javawebinar/topjava/util/MealsUtil.java	(revision )
+@@ -105,7 +105,7 @@
+         return values.stream().flatMap(identity()).collect(toList());
+     }
+ 
+-    public static MealWithExceed createWithExceed(Meal meal, boolean exceeded) {
++    private static MealWithExceed createWithExceed(Meal meal, boolean exceeded) {
+         return new MealWithExceed(meal.getDateTime(), meal.getDescription(), meal.getCalories(), exceeded);
+     }
+ }
+\ No newline at end of file
+Index: src/main/java/ru/javawebinar/topjava/model/MealWithExceed.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/ru/javawebinar/topjava/model/MealWithExceed.java	(date 1509578938000)
++++ src/main/java/ru/javawebinar/topjava/model/MealWithExceed.java	(revision )
+@@ -20,7 +20,7 @@
+ 
+     @Override
+     public String toString() {
+-        return "UserMealWithExceed{" +
++        return "MealWithExceed{" +
+                 "dateTime=" + dateTime +
+                 ", description='" + description + '\'' +
+                 ", calories=" + calories +
+Index: src/main/java/ru/javawebinar/topjava/Main.java
+===================================================================
+--- src/main/java/ru/javawebinar/topjava/Main.java	(date 1509578938000)
++++ src/main/java/ru/javawebinar/topjava/Main.java	(date 1509578938000)
+@@ -1,11 +0,0 @@
+-package ru.javawebinar.topjava;
+-
+-/**
+- * @see <a href="http://topjava.herokuapp.com">Demo</a>
+- * @see <a href="https://github.com/JavaOPs/topjava">Initial project</a>
+- */
+-public class Main {
+-    public static void main(String[] args) {
+-        System.out.format("Hello Topjava Enterprise!");
+-    }
+-}
+Index: src/main/java/ru/javawebinar/topjava/util/TimeUtil.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/ru/javawebinar/topjava/util/TimeUtil.java	(date 1509578938000)
++++ src/main/java/ru/javawebinar/topjava/util/TimeUtil.java	(revision )
+@@ -2,10 +2,6 @@
+ 
+ import java.time.LocalTime;
+ 
+-/**
+- * GKislin
+- * 07.01.2015.
+- */
+ public class TimeUtil {
+     public static boolean isBetween(LocalTime lt, LocalTime startTime, LocalTime endTime) {
+         return lt.compareTo(startTime) >= 0 && lt.compareTo(endTime) <= 0;
