@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.util;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.to.MealTo;
 import ru.javawebinar.topjava.to.MealWithExceed;
 import ru.javawebinar.topjava.to.UserTo;
 
@@ -47,15 +48,15 @@ public class MealsUtil {
     }
 
 
-    public static Meal createNewFromTo(MealWithExceed newMeal) {
+    public static Meal createNewFromTo(MealTo newMeal) {
         return new Meal(null, newMeal.getDateTime(), newMeal.getDescription(), newMeal.getCalories());
     }
 
-    public static MealWithExceed asTo(Meal meal) {
-        return createWithExceed(meal, false);
+    public static MealTo asTo(Meal meal) {
+        return new MealTo(meal.getId(), meal.getDateTime(), meal.getDescription(), meal.getCalories());
     }
 
-    public static Meal updateFromTo(Meal meal, MealWithExceed mealTo) {
+    public static Meal updateFromTo(Meal meal, MealTo mealTo) {
         meal.setDateTime(mealTo.getDateTime());
         meal.setDescription(mealTo.getDescription());
         meal.setCalories(mealTo.getCalories());

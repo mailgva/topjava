@@ -28,13 +28,23 @@ $(function () {
             {
                 "data": "calories"
             },
-            {
+            /*{
                 "defaultContent": "Edit",
                 "orderable": false
             },
             {
                 "defaultContent": "Delete",
                 "orderable": false
+            }*/
+            {
+                "orderable": false,
+                "defaultContent": "",
+                "render": renderEditBtn
+            },
+            {
+                "orderable": false,
+                "defaultContent": "",
+                "render": renderDeleteBtn
             }
         ],
         "order": [
@@ -42,7 +52,12 @@ $(function () {
                 0,
                 "desc"
             ]
-        ]
+        ],
+        "createdRow": function (row, data, dataIndex) {
+            if (!data.enabled) {
+                $(row).attr("data-userEnabled", false);
+            }
+        },
+        "initComplete": makeEditable
     });
-    makeEditable();
 });
