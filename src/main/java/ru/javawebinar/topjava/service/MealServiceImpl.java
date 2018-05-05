@@ -5,7 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.to.MealWithExceed;
+import ru.javawebinar.topjava.util.MealsUtil;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,6 +17,7 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class MealServiceImpl implements MealService {
+
 
     private final MealRepository repository;
 
@@ -46,6 +51,12 @@ public class MealServiceImpl implements MealService {
     @Override
     public Meal update(Meal meal, int userId) {
         return checkNotFoundWithId(repository.save(meal, userId), meal.getId());
+    }
+
+    @Override
+    public Meal update(MealWithExceed mealTo, int userId) {
+        Meal meal = getWithUser(mealTo.getId(), userId);
+        return repository.save(MealsUtil.updateFromTo(meal, mealTo), userId);
     }
 
     @Override

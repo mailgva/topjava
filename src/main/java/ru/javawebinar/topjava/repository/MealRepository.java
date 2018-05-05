@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.repository;
 
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.to.MealWithExceed;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.List;
 public interface MealRepository {
     // null if updated meal do not belong to userId
     Meal save(Meal meal, int userId);
+
+    //Meal save(MealWithExceed mealTo, int userId);
 
     // false if meal do not belong to userId
     boolean delete(int id, int userId);
