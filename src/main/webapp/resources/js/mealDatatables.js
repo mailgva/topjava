@@ -16,11 +16,16 @@ function clearFilter() {
 
 $(function () {
     datatableApi = $("#datatable").DataTable({
+        "ajax": {
+            "url": ajaxUrl,
+            "dataSrc": ""
+        },
         "paging": false,
         "info": true,
         "columns": [
             {
-                "data": "dateTime"
+                "data": "dateTime",
+                "render": showDateTime
             },
             {
                 "data": "description"
@@ -54,9 +59,7 @@ $(function () {
             ]
         ],
         "createdRow": function (row, data, dataIndex) {
-            if (!data.enabled) {
-                $(row).attr("data-userEnabled", false);
-            }
+            $(row).attr("data-mealExceed", data.exceed);
         },
         "initComplete": makeEditable
     });

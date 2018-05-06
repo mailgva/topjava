@@ -10,7 +10,7 @@
 <script type="text/javascript" src="resources/js/userDatatables.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
-<div class="jumbotron pt-4">
+<div class="jumbotron pt-4" data-page="users">
     <div class="container">
         <h3><spring:message code="user.title"/></h3>
         <br/>
@@ -79,7 +79,10 @@
 </div>
 <jsp:include page="fragments/footer.jsp"/>
 </body>
-<script type="text/javascript">
+<jsp:include page="fragments/i18n.jsp"/>
+<%--<script type="text/javascript">
+
+
     var i18n = [];
     i18n["addTitle"] = '<spring:message code="user.add"/>';
     i18n["editTitle"] = '<spring:message code="user.edit"/>';
@@ -87,5 +90,5 @@
     <c:forEach var="key" items='<%=new String[]{"common.deleted","common.saved","common.enabled","common.disabled","common.errorStatus"}%>'>
     i18n["${key}"] = "<spring:message code="${key}"/>";
     </c:forEach>
-</script>
+</script>--%>
 </html>

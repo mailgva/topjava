@@ -1,5 +1,7 @@
 var form;
 
+
+
 function makeEditable() {
     form = $('#detailsForm');
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
@@ -90,4 +92,8 @@ function renderDeleteBtn(data, type, row) {
     if (type === "display") {
         return "<a onclick='deleteRow(" + row.id + ");'><span class='fa fa-remove'></span></a>";
     }
+}
+
+function showDateTime(data, type, row) {
+    return row.dateTime.replace('T', ' ');
 }
