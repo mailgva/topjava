@@ -91,7 +91,7 @@
 
                     <div class="form-group">
                         <label for="dateTime" class="col-form-label"><spring:message code="meal.dateTime"/></label>
-                        <input class="form-control" id="dateTime" name="dateTime"
+                        <input class="form-control" id="dateTime" name="dateTimeUI"
                                placeholder="<spring:message code="meal.dateTime"/>">
                     </div>
 
