@@ -7,6 +7,7 @@ import ru.javawebinar.topjava.HasId;
 import ru.javawebinar.topjava.util.exception.IllegalRequestDataException;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import java.util.List;
 import java.util.StringJoiner;
 
 public class ValidationUtil {
@@ -59,7 +60,12 @@ public class ValidationUtil {
         return result;
     }
 
+
     public static ResponseEntity<String> getErrorResponse(BindingResult result) {
+        return new ResponseEntity<>(getErrorMessages(result), HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    public static String getErrorMessages(BindingResult result) {
         StringJoiner joiner = new StringJoiner("<br>");
         result.getFieldErrors().forEach(
                 fe -> {
@@ -69,6 +75,7 @@ public class ValidationUtil {
                     }
                     joiner.add(msg);
                 });
-        return new ResponseEntity<>(joiner.toString(), HttpStatus.UNPROCESSABLE_ENTITY);
+        return joiner.toString();
+
     }
 }
