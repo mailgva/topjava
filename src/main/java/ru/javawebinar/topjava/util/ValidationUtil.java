@@ -1,9 +1,14 @@
 package ru.javawebinar.topjava.util;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import ru.javawebinar.topjava.HasId;
+import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.service.MealService;
+import ru.javawebinar.topjava.service.UserService;
 import ru.javawebinar.topjava.util.exception.IllegalRequestDataException;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
@@ -40,6 +45,29 @@ public class ValidationUtil {
         }
     }
 
+    public static void checkValidEmail(UserService service, User bean) {
+        List<User> users = service.getAll();
+        User user = null;
+        for(User u : users)
+            if(u.getEmail().equalsIgnoreCase(bean.getEmail())) {
+                user = u;
+                break;
+            }
+
+        if (user != null && (bean.getId() != user.getId())) {
+            throw new DataIntegrityViolationException("User with this email already exists: " + bean.getEmail());
+        }
+    }
+
+
+    public static void checkMealDateTime(MealService service, Meal meal, int id) {
+        List<Meal> meals = service.getBetweenDateTimes(meal.getDateTime(), meal.getDateTime(), id);
+        if (meals.size() > 0) {
+            if(meals.get(0).getId() != meal.getId())
+                throw new DataIntegrityViolationException("Meal with this datetime already exists: " + meal.getDateTime());
+        }
+    }
+
     public static void assureIdConsistent(HasId bean, int id) {
 //      http://stackoverflow.com/a/32728226/548473
         if (bean.isNew()) {
@@ -61,7 +89,9 @@ public class ValidationUtil {
     }
 
 
+
     public static ResponseEntity<String> getErrorResponse(BindingResult result) {
+
         return new ResponseEntity<>(getErrorMessages(result), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
@@ -76,6 +106,6 @@ public class ValidationUtil {
                     joiner.add(msg);
                 });
         return joiner.toString();
-
     }
+
 }

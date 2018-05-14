@@ -16,13 +16,15 @@ import java.util.List;
 
 import static ru.javawebinar.topjava.util.Util.orElse;
 import static ru.javawebinar.topjava.util.ValidationUtil.assureIdConsistent;
+import static ru.javawebinar.topjava.util.ValidationUtil.checkMealDateTime;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
 
 public abstract class AbstractMealController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private MealService service;
+    protected MealService service;
+    //private MealService service;
 
     public Meal get(int id) {
         int userId = AuthorizedUser.id();
@@ -46,6 +48,7 @@ public abstract class AbstractMealController {
         int userId = AuthorizedUser.id();
         checkNew(meal);
         log.info("create {} for user {}", meal, userId);
+        checkMealDateTime(service, meal, userId);
         return service.create(meal, userId);
     }
 
@@ -53,6 +56,7 @@ public abstract class AbstractMealController {
         int userId = AuthorizedUser.id();
         assureIdConsistent(meal, id);
         log.info("update {} for user {}", meal, userId);
+        checkMealDateTime(service, meal, userId);
         service.update(meal, userId);
     }
 

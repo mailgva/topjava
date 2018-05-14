@@ -61,7 +61,13 @@ public class ExceptionInfoHandler {
 
     private static ErrorInfo logAndGetErrorInfo(HttpServletRequest req, Exception e, boolean logException, ErrorType errorType) {
         Throwable rootCause = ValidationUtil.getRootCause(e);
-        String errorsText =  ValidationUtil.getErrorMessages((BindingResult) rootCause);
+        String errorsText;
+
+        if(e instanceof BindingResult)
+            errorsText =  ValidationUtil.getErrorMessages((BindingResult) e);
+        else
+            errorsText = e.getLocalizedMessage();
+
         if (logException) {
             log.error(errorType + " at request " + req.getRequestURL(), errorsText /* rootCause */);
         } else {
